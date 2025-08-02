@@ -1,1 +1,1 @@
-Legg til ADMIN_PASS i Vercel miljøvariabler for admin-innlogging.
+Oppdatert med endringer for index, Om Elråd og Kontakt oss.

@@ -39,19 +39,9 @@ export default function Home() {
       <div className="bg-white shadow p-4 rounded-xl max-w-2xl w-full mt-4 text-gray-800">
         {!submitted ? (
           <>
-            <h1 className="text-3xl font-bold mb-2 text-center">
+            <h1 className="text-3xl font-bold mb-4 text-center">
               Velkommen til Elråd – din digitale elektroassistent
             </h1>
-            <h2 className="text-xl font-semibold mb-4 text-center">
-              Hvordan fungerer Elråd.no?
-            </h2>
-            <p className="mb-4 text-sm text-left">
-              <strong>Steg 1:</strong> Fyll ut skjemaet på forsiden og beskriv problemet ditt. Vår elektro-AI analyserer informasjonen og gir deg råd og veiledning med en gang.
-              <br /><br />
-              <strong>Steg 2:</strong> Hvis problemet ikke blir løst, kan en av våre kvalifiserte fagpersoner – autorisert installatør og elektriker – ta kontakt. Du får da en profesjonell vurdering om problemet kan løses av deg selv, eller om en autorisert elektriker må utføre arbeidet. Ved behov kan vi også gi deg et prisestimat fra Elråd.no for jobben.
-              <br /><br />
-              <strong>Steg 3:</strong> Elråd.no kontakter en lokal elektrikerbedrift og videreformidler all relevant informasjon, inkludert prisestimat. Din lokale elektriker tar deretter kontakt for å gi et konkret tilbud og avtale utførelsen.
-            </p>
             <form onSubmit={handleSubmit} className="space-y-2">
               <textarea
                 name="problem"
@@ -91,7 +81,7 @@ export default function Home() {
           </>
         ) : (
           <p className="text-center font-semibold text-md">
-            Takk! Vi har sendt deg en e-post med AI-råd og mer informasjon.
+            Takk for innsendt skjema. Du vil snart motta en e-post fra vår elektro-AI med råd og veiledning.
           </p>
         )}
       </div>
