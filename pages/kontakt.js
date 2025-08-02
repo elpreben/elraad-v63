@@ -1,93 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 
-export default function Kontakt() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+export default function KontaktOss() {
+  const [saknummer, setSaknummer] = useState('');
+
+  // Autofyll saknummer hvis det finnes i URL (f.eks. /kontakt-oss?saknummer=123)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sn = params.get('saknummer');
+    if (sn) setSaknummer(sn);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    const formData = new FormData(e.target);
-    const plainFormData = Object.fromEntries(formData.entries());
+    const email = e.target.email.value;
+    const melding = e.target.melding.value;
 
     try {
-      await fetch('/api/kontakt', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(plainFormData)
+        body: JSON.stringify({ email, saknummer, melding }),
       });
-      setSubmitted(true);
+
+      if (response.ok) {
+        alert('Din melding er sendt til Elråd.');
+        e.target.reset();
+        setSaknummer('');
+      } else {
+        alert('Det oppstod en feil. Prøv igjen.');
+      }
     } catch (error) {
-      console.error('Feil ved innsending:', error);
-    } finally {
-      setLoading(false);
+      console.error('Feil ved sending:', error);
+      alert('En uventet feil oppstod.');
     }
   };
 
   return (
     <Layout>
-      <div className="bg-white shadow p-4 rounded-xl max-w-md w-full mt-4">
-        {!submitted ? (
-          <>
-            <h1 className="text-lg font-bold mb-2 text-center">Kontakt oss</h1>
-            <p className="mb-3 text-center text-gray-700 text-xs">
-              Fyll ut skjema, og vi vil kontakte deg innen 48 timer på telefon.
-              <br />
-              <span className="font-semibold">
-                (Estimert avsatt tid: 10–15 minutter per samtale, Kr 50,- inkl. MVA)
-              </span>
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-2">
-              <input
-                name="navn"
-                type="text"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="Fullt navn"
-                required
-              />
-              <input
-                name="telefon"
-                type="text"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="Telefonnummer"
-                required
-              />
-              <input
-                name="adresse"
-                type="text"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="Adresse"
-                required
-              />
-              <input
-                name="postnummer"
-                type="text"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="Postnummer"
-                required
-              />
-              <input
-                name="email"
-                type="email"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="E-postadresse"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-green-500 text-white font-bold py-2 rounded-lg text-sm"
-              >
-                {loading ? 'Sender...' : 'SEND MELDING'}
-              </button>
-            </form>
-          </>
-        ) : (
-          <p className="text-center font-semibold text-md">
-            Takk! Vi har mottatt din forespørsel. Vi tar kontakt innen 48 timer.
-          </p>
-        )}
+      <div className="max-w-2xl mx-auto bg-white p-6 shadow rounded-lg mt-6">
+        <h1 className="text-3xl font-bold mb-4 text-center">Kontakt oss</h1>
+        <p className="text-center text-gray-600 mb-6">
+          Har du spørsmål eller trenger videre hjelp? Fyll ut skjemaet nedenfor.
+        </p>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="E-postadresse"
+            className="w-full border p-3 rounded"
+            required
+          />
+          <input
+            type="text"
+            name="saknummer"
+            value={saknummer}
+            onChange={(e) => setSaknummer(e.target.value)}
+            placeholder="Saksnummer (hvis tilgjengelig)"
+            className="w-full border p-3 rounded"
+          />
+          <textarea
+            name="melding"
+            placeholder="Skriv din melding..."
+            className="w-full border p-3 rounded"
+            rows="5"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-3 rounded font-bold w-full"
+          >
+            Send melding
+          </button>
+        </form>
       </div>
     </Layout>
   );
