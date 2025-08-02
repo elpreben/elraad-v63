@@ -11,12 +11,14 @@ export default function Home() {
 
     const email = e.target.email.value;
     const description = e.target.problem.value;
+    const boenhet = e.target.boenhet.value;
+    const aarstall = e.target.aarstall.value;
 
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, description }),
+        body: JSON.stringify({ email, description, boenhet, aarstall }),
       });
 
       if (response.ok) {
@@ -38,12 +40,14 @@ export default function Home() {
         {!submitted ? (
           <>
             <h1 className="text-2xl font-bold mb-4 text-center">
-              Velkommen til Elråd – din digitale elektroassistent
+              Hvordan fungerer Elråd.no?
             </h1>
-            <p className="mb-4 text-sm text-center">
-              Hos Elråd hjelper vi deg med å løse problemer knyttet til ditt elektriske anlegg på en enkel og trygg måte.
-              <br />
-              Vår løsning kombinerer kunstig intelligens og ekte fagkompetanse for å gi deg raske og presise råd.
+            <p className="mb-4 text-sm text-left">
+              <strong>Steg 1:</strong> Fyll ut skjemaet på forsiden og beskriv problemet ditt. Vår elektro-AI analyserer informasjonen og gir deg råd og veiledning med en gang.
+              <br /><br />
+              <strong>Steg 2:</strong> Hvis problemet ikke blir løst, kan en av våre kvalifiserte fagpersoner – autorisert installatør og elektriker – ta kontakt. Du får da en profesjonell vurdering om problemet kan løses av deg selv, eller om en autorisert elektriker må utføre arbeidet. Ved behov kan vi også gi deg et prisestimat fra Elråd.no for jobben.
+              <br /><br />
+              <strong>Steg 3:</strong> Elråd.no kontakter en lokal elektrikerbedrift og videreformidler all relevant informasjon, inkludert prisestimat. Din lokale elektriker tar deretter kontakt for å gi et konkret tilbud og avtale utførelsen.
             </p>
             <form onSubmit={handleSubmit} className="space-y-2">
               <textarea
@@ -51,7 +55,21 @@ export default function Home() {
                 className="w-full border p-2 rounded text-sm"
                 placeholder="Beskriv problemet..."
                 required
-                rows="2"
+                rows="3"
+              />
+              <input
+                name="boenhet"
+                type="text"
+                className="w-full border p-2 rounded text-sm"
+                placeholder="Hvilken type boenhet?"
+                required
+              />
+              <input
+                name="aarstall"
+                type="text"
+                className="w-full border p-2 rounded text-sm"
+                placeholder="Årstall for elektroinstallasjonen"
+                required
               />
               <input
                 name="email"
