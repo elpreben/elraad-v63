@@ -39,9 +39,12 @@ export default function Home() {
       <div className="bg-white shadow p-4 rounded-xl max-w-2xl w-full mt-4 text-gray-800">
         {!submitted ? (
           <>
-            <h1 className="text-2xl font-bold mb-4 text-center">
-              Hvordan fungerer Elråd.no?
+            <h1 className="text-3xl font-bold mb-2 text-center">
+              Velkommen til Elråd – din digitale elektroassistent
             </h1>
+            <h2 className="text-xl font-semibold mb-4 text-center">
+              Hvordan fungerer Elråd.no?
+            </h2>
             <p className="mb-4 text-sm text-left">
               <strong>Steg 1:</strong> Fyll ut skjemaet på forsiden og beskriv problemet ditt. Vår elektro-AI analyserer informasjonen og gir deg råd og veiledning med en gang.
               <br /><br />
