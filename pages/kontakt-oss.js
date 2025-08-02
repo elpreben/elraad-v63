@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 export default function KontaktOss() {
   const [saknummer, setSaknummer] = useState('');
 
+  // Autofyll saknummer hvis det finnes i URL (f.eks. /kontakt-oss?saknummer=123)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const sn = params.get('saknummer');
@@ -12,22 +13,37 @@ export default function KontaktOss() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const email = e.target.email.value;
     const melding = e.target.melding.value;
 
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, saknummer, melding }),
-    });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, saknummer, melding }),
+      });
 
-    alert('Din melding er sendt til Elråd.');
+      if (response.ok) {
+        alert('Din melding er sendt til Elråd.');
+        e.target.reset();
+        setSaknummer('');
+      } else {
+        alert('Det oppstod en feil. Prøv igjen.');
+      }
+    } catch (error) {
+      console.error('Feil ved sending:', error);
+      alert('En uventet feil oppstod.');
+    }
   };
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto bg-white p-6 shadow rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Kontakt oss</h1>
+      <div className="max-w-2xl mx-auto bg-white p-6 shadow rounded-lg mt-6">
+        <h1 className="text-3xl font-bold mb-4 text-center">Kontakt oss</h1>
+        <p className="text-center text-gray-600 mb-6">
+          Har du spørsmål eller trenger videre hjelp? Fyll ut skjemaet nedenfor.
+        </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
