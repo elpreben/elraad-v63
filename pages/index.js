@@ -36,51 +36,55 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="bg-white shadow p-4 rounded-xl max-w-2xl w-full mt-4 text-gray-800">
+      <div className="bg-white shadow p-6 rounded-xl max-w-2xl w-full mt-6 text-gray-800">
         {!submitted ? (
           <>
-            <h1 className="text-3xl font-bold mb-4 text-center">
+            <h1 className="text-3xl font-bold mb-3 text-center">
               Velkommen til Elråd – din digitale elektroassistent
             </h1>
-            <form onSubmit={handleSubmit} className="space-y-2">
+            <p className="text-center text-gray-600 mb-6">
+              Hos Elråd får du raske AI-råd og mulighet for oppfølging av autorisert installatør.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-3">
               <textarea
                 name="problem"
-                className="w-full border p-2 rounded text-sm"
-                placeholder="Beskriv problemet..."
+                className="w-full border p-3 rounded text-sm"
+                placeholder="Beskriv problemet ditt..."
                 required
-                rows="3"
+                rows="4"
               />
               <input
                 name="boenhet"
                 type="text"
-                className="w-full border p-2 rounded text-sm"
+                className="w-full border p-3 rounded text-sm"
                 placeholder="Hvilken type boenhet?"
                 required
               />
               <input
                 name="aarstall"
                 type="text"
-                className="w-full border p-2 rounded text-sm"
+                className="w-full border p-3 rounded text-sm"
                 placeholder="Årstall for elektroinstallasjonen"
                 required
               />
               <input
                 name="email"
                 type="email"
-                className="w-full border p-2 rounded text-sm"
+                className="w-full border p-3 rounded text-sm"
                 placeholder="E-postadresse"
                 required
               />
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-green-500 text-white font-bold py-2 rounded-lg text-sm mt-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-green-500 text-white font-bold py-3 rounded-lg text-md mt-2"
               >
                 {loading ? 'Sender...' : 'SEND INN'}
               </button>
             </form>
           </>
         ) : (
-          <p className="text-center font-semibold text-md">
+          <p className="text-center font-semibold text-lg">
             Takk for innsendt skjema. Du vil snart motta en e-post fra vår elektro-AI med råd og veiledning.
           </p>
         )}

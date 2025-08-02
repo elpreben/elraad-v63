@@ -33,7 +33,7 @@ export default function KontaktOss() {
             type="email"
             name="email"
             placeholder="E-postadresse"
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded"
             required
           />
           <input
@@ -42,18 +42,18 @@ export default function KontaktOss() {
             value={saknummer}
             onChange={(e) => setSaknummer(e.target.value)}
             placeholder="Saksnummer (hvis tilgjengelig)"
-            className="w-full border p-2 rounded"
+            className="w-full border p-3 rounded"
           />
           <textarea
             name="melding"
             placeholder="Skriv din melding..."
-            className="w-full border p-2 rounded"
-            rows="4"
+            className="w-full border p-3 rounded"
+            rows="5"
             required
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded font-bold w-full"
+            className="bg-blue-600 text-white px-4 py-3 rounded font-bold w-full"
           >
             Send melding
           </button>

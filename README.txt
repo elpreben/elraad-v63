@@ -1,1 +1,1 @@
-Oppdatert med endringer for index, Om Elråd og Kontakt oss.
+Forsiden har nå informasjonsseksjon, Kontakt oss har tydelig Saksnummer-felt.
