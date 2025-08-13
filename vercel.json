@@ -1,0 +1,37 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "xn--elrd-soa.no"
+        }
+      ],
+      "destination": "https://elraad.no/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.xn--elrd-soa.no"
+        }
+      ],
+      "destination": "https://elraad.no/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.elraad.no"
+        }
+      ],
+      "destination": "https://elraad.no/$1",
+      "permanent": true
+    }
+  ]
+}
