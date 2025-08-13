@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
@@ -11,11 +11,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: 'Epost og beskrivelse er påkrevd.' });
   }
 
-  // Send svar til klienten umiddelbart
-  res.status(200).json({ success: true });
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ success: true }));
 
-  // Send e-post i bakgrunnen
-  setImmediate(async () => {
+  (async () => {
     try {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -27,7 +26,6 @@ export default async function handler(req, res) {
         }
       });
 
-      // Send e-post til bruker
       await transporter.sendMail({
         from: `"Elråd" <${process.env.SMTP_USER}>`,
         to: epost,
@@ -38,7 +36,6 @@ export default async function handler(req, res) {
                <p>Vi svarer deg så snart vi kan.</p>`
       });
 
-      // Send kopi til post@elraad.no
       await transporter.sendMail({
         from: `"Elråd Nettside" <${process.env.SMTP_USER}>`,
         to: 'post@elraad.no',
@@ -53,5 +50,5 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('❌ Feil ved sending av epost:', error);
     }
-  });
+  })();
 }
